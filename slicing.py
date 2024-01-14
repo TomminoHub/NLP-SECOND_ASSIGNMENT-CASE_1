@@ -12,9 +12,21 @@ nltk.download('punkt')
 nltk.download('wordnet')
 nltk.download('stopwords')
 
-
+#FUNZIONE CHE CREA LE DIVERSE SLICE PARTENDO DAL TESTO INIZIALE
 def slice_build(testo, context_window):
+    #eseguo un controllo iniziale
+    #se il testo è di dimensioni inferiori della context window non faccio niente
+    sum_controllo_iniziale = 0
     sentences = sentence_tokenization(testo)
+    
+    for sentence in sentences:
+        words = word_tokenization(sentence)
+        sum_controllo_iniziale += len(words)
+        
+    if sum_controllo_iniziale < context_window:
+        print('nessuna suddivisione necessaria')
+        return
+    
     text_norm = []  #lista che contiene il testo in lingua naturale di un paragrafo
     text_token = [] #lista che contiene i token di un paragrafo
     idx = 0 
